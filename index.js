@@ -113,6 +113,7 @@ class AnimatedCard extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         // only called back for seqNumber
+        console.log("animated-card: attributeChangedCallback for ", name);
         if (newValue != oldValue) {
             let elemThis = this;
             // minimal delay so we also observe any other changed attribs
