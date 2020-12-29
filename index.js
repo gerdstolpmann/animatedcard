@@ -3,16 +3,17 @@
 /*
 
 INS:
-[ { name:"keyframes", type:[{}] },
-  { name:"options", type:{} },
-  { name:"addToQueue", type:"event" },
-  { name:"pause", type:"event" },
-  { name:"cancel", type:"event" },
-  { name:"play", type:"event" },
-  { name:"finish", type:"event" }
+[ { "name":"keyframes", "type":[{}] },
+  { "name":"options", "type":{} },
+  { "name":"addToQueue", "type":"event" },
+  { "name":"pause", "type":"event" },
+  { "name":"cancel", "type":"event" },
+  { "name":"play", "type":"event" },
+  { "name":"finish", "type":"event" }
 ]
 
 EVENTS:
+[]
 
 */
 
