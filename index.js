@@ -21,7 +21,7 @@ class AnimatedCard extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["keyframes", "options", "seqNumber"];
+        return ["seqNumber"];
     }
 
     addToQueue() {
@@ -109,6 +109,17 @@ class AnimatedCard extends HTMLElement {
         let copy = this.firstElementChild.cloneNode(true); // deep clone
         this.shadowTop.appendChild(copy);
         this.addToQueue();
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        // only called back for seqNumber
+        if (newValue != oldValue) {
+            let elemThis = this;
+            // minimal delay so we also observe any other changed attribs
+            window.setTimeout(function() {
+                elemThis.addToQueue();
+            })
+        }
     }
 
     nextAnimation() {
