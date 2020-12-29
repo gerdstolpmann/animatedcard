@@ -5,6 +5,8 @@ class AnimatedCard extends HTMLElement {
         super();
 
         this.current = null;
+        this.active = false;
+        this.state = "playing";
         this.seqNumber = null;
         this.queue = [];
         this.zeroTime = Date.now();
@@ -58,42 +60,61 @@ class AnimatedCard extends HTMLElement {
         this.queue.push( { keyframes: new_keyframes,
                            options: new_options
                          } );
+        if (!this.active)
+            this.nextAnimation();
     }
     
     pause() {
+        this.state = "paused";
         if (this.current != null) this.current.pause();
     }
 
     play() {
-        if (this.current != null) this.current.play();
+        this.state = "playing";
+        if (this.current != null)
+            this.current.play()
+        else {
+            if (!this.active)
+                this.nextAnimation();
+        }
     }
 
     cancel() {
-        if (this.current != null) this.current.cancel();
+        this.state = "canceled";
+        if (this.current != null)
+            this.current.cancel();
+        this.queue = [];
     }
 
     finish() {
-        if (this.current != null) this.current.finish();
+        this.state = "playing";
+        if (this.current != null)
+            this.current.finish();
     }
 
     connectedCallback() {
         let copy = this.firstElementChild.cloneNode(true); // deep clone
         this.shadowTop.appendChild(copy);
         this.addToQueue();
-        this.nextAnimation();
     }
 
     nextAnimation() {
         console.log("animated-card: nextAnimation");
-        if (this.queue.length == 0)
+        if (this.queue.length == 0 || this.state != "playing")
             return;
         let next = this.queue.shift();
         let time = Date.now() - this.zeroTime;
         let waitTime = 0;
         if (next.options && next.options.startAt !== undefined && next.options.startAt >= time)
             waitTime = next.options.startAt - time;
+        this.active = true;
         let elemThis = this;
         window.setTimeout(function() {
+            if (this.state != "playing") {
+                if (this.state == "paused")
+                    this.queue.unshift(next);
+                return;
+            }
             if (next.options && next.options.finishAt !== undefined) {
                 let time = Date.now() - elemThis.zeroTime;
                 let dur = next.options.finishAt - time;
@@ -108,6 +129,7 @@ class AnimatedCard extends HTMLElement {
     }
 
     onAnimFinish() {
+        this.active = false;
         this.nextAnimation()
     }
 }
