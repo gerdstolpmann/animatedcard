@@ -1,6 +1,16 @@
 "use-strict";
 
 /*
+Register this web component as:
+
+TAG:
+animated-card
+
+MODTYPE:
+url
+
+DATA:
+https://gerdstolpmann.github.io/animatedcard/index.js
 
 INS:
 [ { "name":"keyframes", "type":[{}] },
