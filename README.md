@@ -76,7 +76,7 @@ from `finishAt`.
 
 ## Sequence numbers
 
-If a `seqNumber` input is passed in, the behavior of the `addToQueue`
-event changes slightly. The new values are only added to the queue
-when the `seqNumber` has been increased since the last time an
-animation was added.
+If a `seqNumber` input is passed in with a value > 0, the behavior of
+the `addToQueue` event changes slightly. The new values are only added
+to the queue when the `seqNumber` has been increased since the last
+time an animation was added.

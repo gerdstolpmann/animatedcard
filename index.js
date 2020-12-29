@@ -27,9 +27,11 @@ class AnimatedCard extends HTMLElement {
         let attr_seqNumber = this.getAttribute("seqNumber");
         if (attr_seqNumber) {
             let seqNumber = parseInt(attr_seqNumber, 10);
-            if (this.seqNumber !== null && this.seqNumber >= seqNumber)
-                return;  // ignore update
-            this.seqNumber = seqNumber;
+            if (seqNumber > 0) {
+                if (this.seqNumber !== null && this.seqNumber >= seqNumber)
+                    return;  // ignore update
+                this.seqNumber = seqNumber;
+            }
         };
         let new_keyframes = [];
         let new_options = {};
