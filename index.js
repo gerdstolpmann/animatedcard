@@ -36,14 +36,12 @@ class AnimatedCard extends HTMLElement {
         this.queue = [];
 
         this.attachShadow({mode: 'open'});
-        let something = document.createElement('div');
-        let more = document.createElement("div");
-        more.id = "mydiv";
-        more.setAttribute("style", "width: 10px; height: 10px; background-color: black; position: absolute; display: block;");
-        something.append(more);
+        let wrapper = document.createElement('div');
+        wrapper.setAttribute("style", "display: block;");
+        // only block elements can be animated
         
-        this.shadowTop = more;
-        this.shadowRoot.append(something);
+        this.shadowTop = wrapper;
+        this.shadowRoot.append(wrapper);
     }
 
     static get observedAttributes() {
@@ -94,6 +92,8 @@ class AnimatedCard extends HTMLElement {
     }
 
     connectedCallback() {
+        let copy = this.firstElementChild.cloneNode(true); // deep clone
+        this.shadowTop.appendChild(copy);
         this.addToQueue();
         this.nextAnimation();
     }
