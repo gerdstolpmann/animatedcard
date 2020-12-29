@@ -1,6 +1,10 @@
 "use-strict";
 
 class AnimatedCard extends HTMLElement {
+    static get observedAttributes() {
+        return ["seqNumber"];
+    }
+
     constructor() {
         super();
 
@@ -18,10 +22,6 @@ class AnimatedCard extends HTMLElement {
         
         this.shadowTop = wrapper;
         this.shadowRoot.append(wrapper);
-    }
-
-    static get observedAttributes() {
-        return ["seqNumber"];
     }
 
     addToQueue() {
@@ -106,6 +106,7 @@ class AnimatedCard extends HTMLElement {
     }
 
     connectedCallback() {
+        console.log("animated-card: connecting");
         let copy = this.firstElementChild.cloneNode(true); // deep clone
         this.shadowTop.appendChild(copy);
         this.addToQueue();
@@ -114,7 +115,7 @@ class AnimatedCard extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         // only called back for seqNumber
         console.log("animated-card: attributeChangedCallback for ", name);
-        if (newValue != oldValue) {
+        if (this.isConnected && newValue != oldValue) {
             let elemThis = this;
             // minimal delay so we also observe any other changed attribs
             window.setTimeout(function() {
