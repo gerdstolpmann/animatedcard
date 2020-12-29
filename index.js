@@ -60,7 +60,6 @@ class AnimatedCard extends HTMLElement {
         this.queue.push( { keyframes: new_keyframes,
                            options: new_options
                          } );
-        console.log("active=", this.active);
         if (!this.active)
             this.nextAnimation();
     }
@@ -120,6 +119,7 @@ class AnimatedCard extends HTMLElement {
                 let time = Date.now() - elemThis.zeroTime;
                 let dur = next.options.finishAt - time;
                 if (dur < 0) dur = 0;
+                console.log("duration:", dur);
                 next.options.duration = dur;
             };
             delete(next.options.startAt);
