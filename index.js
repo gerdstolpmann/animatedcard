@@ -110,9 +110,9 @@ class AnimatedCard extends HTMLElement {
         this.active = true;
         let elemThis = this;
         window.setTimeout(function() {
-            if (this.state != "playing") {
-                if (this.state == "paused")
-                    this.queue.unshift(next);
+            if (elemThis.state != "playing") {
+                if (elemThis.state == "paused")
+                    elemThis.queue.unshift(next);
                 return;
             }
             if (next.options && next.options.finishAt !== undefined) {
@@ -129,6 +129,7 @@ class AnimatedCard extends HTMLElement {
     }
 
     onAnimFinish() {
+        console.log("animated-card: finished animation");
         this.active = false;
         this.nextAnimation()
     }
