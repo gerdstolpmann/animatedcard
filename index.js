@@ -119,6 +119,8 @@ class AnimatedCard extends HTMLElement {
                 let time = Date.now() - elemThis.zeroTime;
                 let dur = next.options.finishAt - time;
                 if (dur < 0) dur = 0;
+                console.log("finishAt:", next.options.finishAt);
+                console.log("time:", time);
                 console.log("duration:", dur);
                 next.options.duration = dur;
             };
