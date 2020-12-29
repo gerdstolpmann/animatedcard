@@ -26,6 +26,18 @@ class AnimatedCard extends HTMLElement {
 
     addToQueue() {
         console.log("animated-card: addToQueue");
+        let attr_time = this.getAttribute("time");
+        if (attr_time) {
+            let req_time = parseInt(attr_time, 10);
+            if (req_time > 0) {
+                let client_time = Date.now() - this.zeroTime;
+                if (req_time < client_time) {
+                    this.zeroTime += (client_time - req_time);
+                } else {
+                    this.zeroTime += 0.5 * (client_time - req_time);
+                }
+            }
+        };
         let attr_seqNumber = this.getAttribute("seqNumber");
         if (attr_seqNumber) {
             console.log("seqNumber:", attr_seqNumber);

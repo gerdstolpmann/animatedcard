@@ -16,6 +16,7 @@ INS:
 [ { "name":"keyframes", "type":[{}] },
   { "name":"options", "type":{} },
   { "name":"seqNumber", "type": "number" },
+  { "name":"time", "type": "number" },
   { "name":"addToQueue", "type":"event" },
   { "name":"pause", "type":"event" },
   { "name":"cancel", "type":"event" },
@@ -80,3 +81,8 @@ If a `seqNumber` input is passed in with a value > 0, the behavior of
 the `addToQueue` event changes slightly. The new values are only added
 to the queue when the `seqNumber` has been increased since the last
 time an animation was added.
+
+## Adjusting time reference
+
+The `time` input can be set to the expected time (in milliseconds since
+instantiation).
