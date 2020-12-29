@@ -28,6 +28,7 @@ class AnimatedCard extends HTMLElement {
         console.log("animated-card: addToQueue");
         let attr_seqNumber = this.getAttribute("seqNumber");
         if (attr_seqNumber) {
+            console.log("seqNumber:", attr_seqNumber);
             let seqNumber = parseInt(attr_seqNumber, 10);
             if (seqNumber > 0) {
                 if (this.seqNumber !== null && this.seqNumber >= seqNumber) {
