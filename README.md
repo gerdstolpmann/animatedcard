@@ -33,7 +33,7 @@ FIELD LABEL TEXT:
 ## Animate a card
 
 This component is an interface for the
-[https://developer.mozilla.org/en-US/docs/Web/API/Element/animate](animate)
+[animate](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
 function of HTML elements. You can pass `keyframes` and `options`
 as described in the standard, e.g.
 
