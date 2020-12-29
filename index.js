@@ -28,8 +28,10 @@ class AnimatedCard extends HTMLElement {
         if (attr_seqNumber) {
             let seqNumber = parseInt(attr_seqNumber, 10);
             if (seqNumber > 0) {
-                if (this.seqNumber !== null && this.seqNumber >= seqNumber)
+                if (this.seqNumber !== null && this.seqNumber >= seqNumber) {
+                    console.log("animated-card: ignored addition");
                     return;  // ignore update
+                };
                 this.seqNumber = seqNumber;
             }
         };
