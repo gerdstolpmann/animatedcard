@@ -60,6 +60,7 @@ class AnimatedCard extends HTMLElement {
         this.queue.push( { keyframes: new_keyframes,
                            options: new_options
                          } );
+        console.log("active=", this.active);
         if (!this.active)
             this.nextAnimation();
     }
