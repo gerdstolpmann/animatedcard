@@ -2,7 +2,7 @@
 
 class AnimatedCard extends HTMLElement {
     static get observedAttributes() {
-        return ["seqNumber"];
+        return ["seqnumber"];
     }
 
     constructor() {
@@ -38,7 +38,7 @@ class AnimatedCard extends HTMLElement {
                 }
             }
         };
-        let attr_seqNumber = this.getAttribute("seqNumber");
+        let attr_seqNumber = this.getAttribute("seqnumber");
         if (attr_seqNumber) {
             console.log("seqNumber:", attr_seqNumber);
             let seqNumber = parseInt(attr_seqNumber, 10);
