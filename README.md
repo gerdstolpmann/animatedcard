@@ -15,7 +15,7 @@ https://gerdstolpmann.github.io/animatedcard/index.js
 INS:
 [ { "name":"keyframes", "type":[{}] },
   { "name":"options", "type":{} },
-  { "name":"seqNumber", "type": "number" },
+  { "name":"seqnumber", "type": "number" },
   { "name":"time", "type": "number" },
   { "name":"addToQueue", "type":"event" },
   { "name":"pause", "type":"event" },
@@ -77,9 +77,9 @@ from `finishAt`.
 
 ## Sequence numbers
 
-If a `seqNumber` input is passed in with a value > 0, the behavior of
+If a `seqnumber` input is passed in with a value > 0, the behavior of
 the `addToQueue` event changes slightly. The new values are only added
-to the queue when the `seqNumber` has been increased since the last
+to the queue when the `seqnumber` has been increased since the last
 time an animation was added.
 
 ## Adjusting time reference
