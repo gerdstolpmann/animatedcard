@@ -145,10 +145,10 @@ class AnimatedCard extends HTMLElement {
                 let time = Date.now() - elemThis.zeroTime;
                 let dur = next.options.finishAt - time;
                 if (dur < 0) dur = 0;
-                console.log("startAt:", next.options.startAt);
-                console.log("finishAt:", next.options.finishAt);
-                console.log("time:", time);
-                console.log("duration:", dur);
+                // console.log("startAt:", next.options.startAt);
+                // console.log("finishAt:", next.options.finishAt);
+                // console.log("time:", time);
+                // console.log("duration:", dur);
                 next.options.duration = dur;
             };
             delete(next.options.startAt);
@@ -159,7 +159,6 @@ class AnimatedCard extends HTMLElement {
     }
 
     onAnimFinish() {
-        console.log("animated-card: finished animation");
         this.active = false;
         this.nextAnimation()
     }

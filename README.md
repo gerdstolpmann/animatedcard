@@ -61,9 +61,21 @@ These additional animations queue up, and when the first animation
 finishes (either naturally or because of a `finish` event), the next
 animation in the queue is automatically and seamlessly started.
 
-There is no upper bound for the number of queue elements. However, it
+There is no upper bound for the number of queued elements. However, it
 is usually not wise to submit more than one waiting animation.
 
+**Note that there is currently a bug in the runtime:**
+When the `addToQueue` event fires, and the other attributes (in particular
+`keyframes`) change at around the same time, it is possible that the changes
+are not recorded correctly. **Workaround:** Use `seqnumber` instead
+in such cases.
+
+## Sequence numbers
+
+In addition to triggering `addToQueue` there is another mechanism to
+queue up further animations. You can also set the `seqnumber` input
+to a value > 0, and whenever this value is increased, another animation
+is added to the queue.
 
 ## Controlling the start and finish time exactly
 
@@ -74,13 +86,6 @@ given in milliseconds since the time the web component was instantiated.
 The other field is `options.finishAt`. If present it overrides the
 `options.duration` field - in other words, the `duration` is derived
 from `finishAt`.
-
-## Sequence numbers
-
-If a `seqnumber` input is passed in with a value > 0, the behavior of
-the `addToQueue` event changes slightly. The new values are only added
-to the queue when the `seqnumber` has been increased since the last
-time an animation was added.
 
 ## Adjusting time reference
 
