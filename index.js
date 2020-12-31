@@ -32,9 +32,9 @@ class AnimatedCard extends HTMLElement {
             if (req_time > 0) {
                 let client_time = Date.now() - this.zeroTime;
                 if (req_time < client_time) {
-                    this.zeroTime += (client_time - req_time);
+                    this.zeroTime += 0.2 * (client_time - req_time);
                 } else {
-                    this.zeroTime += 0.5 * (client_time - req_time);
+                    this.zeroTime += 0.1 * (client_time - req_time);
                 }
             }
         };
