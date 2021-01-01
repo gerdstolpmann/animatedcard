@@ -110,6 +110,11 @@ class AnimatedCard extends HTMLElement {
         console.log("animated-card: connecting");
         let copy = this.firstElementChild.cloneNode(true); // deep clone
         this.shadowTop.appendChild(copy);
+        let attr_time = this.getAttribute("time");
+        if (attr_time) {
+            let req_time = parseInt(attr_time, 10);
+            this.zeroTime = Date.now() - req_time;
+        };
         this.addToQueue();
     }
 
