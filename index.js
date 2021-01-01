@@ -8,6 +8,7 @@ class AnimatedCard extends HTMLElement {
     constructor() {
         super();
 
+        console.log("animated-card: instantiate");
         this.current = null;
         this.active = false;
         this.state = "playing";
