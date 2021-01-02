@@ -77,6 +77,7 @@ class AnimatedCard extends HTMLElement {
             this.child = this.firstElementChild;
             let copy = this.firstElementChild.cloneNode(true); // deep clone
             this.shadowTop.appendChild(copy);
+            this.observeChild();
         }
         
         this.queue.push( { keyframes: new_keyframes,
@@ -119,6 +120,7 @@ class AnimatedCard extends HTMLElement {
         this.child = this.firstElementChild;
         let copy = this.firstElementChild.cloneNode(true); // deep clone
         this.shadowTop.appendChild(copy);
+        this.observeChild();
         let attr_time = this.getAttribute("time");
         if (attr_time) {
             let req_time = parseInt(attr_time, 10);
@@ -127,6 +129,19 @@ class AnimatedCard extends HTMLElement {
         this.addToQueue();
     }
 
+    observeChild() {
+        if (this.observer)
+            this.observer.disconnect();
+        let elemThis = this;
+        let observer = new MutationObserver(function() {
+            elemThis.shadowTop.removeChild(elemThis.shadowTop.firstElementChild);
+            let copy = elemThis.firstElementChild.cloneNode(true); // deep clone
+            elemThis.shadowTop.appendChild(copy);
+        });
+        observer.observe(this.child, {subtree:true, childList:true, attributes:true, characterData:true});
+        this.observer = observer;
+    }
+    
     attributeChangedCallback(name, oldValue, newValue) {
         // only called back for seqNumber
         console.log("animated-card: attributeChangedCallback for ", name);
