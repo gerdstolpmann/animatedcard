@@ -15,6 +15,7 @@ class AnimatedCard extends HTMLElement {
         this.seqNumber = null;
         this.queue = [];
         this.zeroTime = Date.now();
+        this.child = null;
 
         this.attachShadow({mode: 'open'});
         let wrapper = document.createElement('div');
@@ -71,6 +72,13 @@ class AnimatedCard extends HTMLElement {
             }
         }
 
+        if (!this.child.isSameNode(this.firstElementChild)) {
+            this.shadowTop.removeChild(this.shadowTop.firstElementChild);
+            this.child = this.firstElementChild;
+            let copy = this.firstElementChild.cloneNode(true); // deep clone
+            this.shadowTop.appendChild(copy);
+        }
+        
         this.queue.push( { keyframes: new_keyframes,
                            options: new_options
                          } );
@@ -108,6 +116,7 @@ class AnimatedCard extends HTMLElement {
 
     connectedCallback() {
         console.log("animated-card: connecting");
+        this.child = this.firstElementChild;
         let copy = this.firstElementChild.cloneNode(true); // deep clone
         this.shadowTop.appendChild(copy);
         let attr_time = this.getAttribute("time");
