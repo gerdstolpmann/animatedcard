@@ -42,7 +42,6 @@ class AnimatedCard extends HTMLElement {
         };
         let attr_seqNumber = this.getAttribute("seqnumber");
         if (attr_seqNumber) {
-            console.log("seqNumber:", attr_seqNumber);
             let seqNumber = parseInt(attr_seqNumber, 10);
             if (seqNumber > 0) {
                 if (this.seqNumber !== null && this.seqNumber >= seqNumber) {
@@ -52,7 +51,7 @@ class AnimatedCard extends HTMLElement {
                 this.seqNumber = seqNumber;
             }
         };
-        console.log("addToQueue: time=", attr_time, " seqnumber=", attr_seqNumber);
+        console.log("addToQueue: time=", attr_time, " zero=", this.zeroTime," seqnumber=", attr_seqNumber);
         let new_keyframes = [];
         let new_options = {};
         let attr_keyframes = this.getAttribute("keyframes");
