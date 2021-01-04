@@ -187,7 +187,8 @@ class AnimatedCard extends HTMLElement {
         delete(next.options.startAt);
         delete(next.options.finishAt);
         this.current = this.shadowTop.animate(next.keyframes, next.options);
-        this.current.onfinish = function() { this.onAnimFinish() };
+        let elemThis = this;
+        this.current.onfinish = function() { elemThis.onAnimFinish() };
     }
 
     onAnimFinish() {
