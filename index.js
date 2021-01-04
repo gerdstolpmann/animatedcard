@@ -161,12 +161,14 @@ class AnimatedCard extends HTMLElement {
             waitTime = next.options.startAt - time;
         this.active = true;
         if (waitTime == 0)
-            this.submitAnimation()
-        else
-            window.setTimeout(this.submitAnimation, waitTime);
+            this.submitAnimation(next)
+        else {
+            let elemThis = this;
+            window.setTimeout(function() { elemThis.submitAnimation(next) }, waitTime);
+        }
     }
 
-    submitAnimation() {
+    submitAnimation(next) {
         if (this.state != "playing") {
             if (this.state == "paused")
                 this.queue.unshift(next);
