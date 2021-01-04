@@ -33,11 +33,7 @@ class AnimatedCard extends HTMLElement {
             let req_time = parseInt(attr_time, 10);
             if (req_time > 0) {
                 let client_time = Date.now() - this.zeroTime;
-                if (req_time < client_time) {
-                    this.zeroTime += 0.2 * (client_time - req_time);
-                } else {
-                    this.zeroTime += 0.1 * (client_time - req_time);
-                }
+                this.zeroTime += Math.floor(0.1 * (client_time - req_time));
             }
         };
         let attr_seqNumber = this.getAttribute("seqnumber");
@@ -51,7 +47,7 @@ class AnimatedCard extends HTMLElement {
                 this.seqNumber = seqNumber;
             }
         };
-        console.log("addToQueue: time=", attr_time, " client_time=", Date.now() - this.zeroTime," seqnumber=", attr_seqNumber);
+        console.log("addToQueue: time=", attr_time, " client_time=", Math.floor(Date.now() - this.zeroTime)," seqnumber=", attr_seqNumber);
         let new_keyframes = [];
         let new_options = {};
         let attr_keyframes = this.getAttribute("keyframes");
@@ -159,33 +155,37 @@ class AnimatedCard extends HTMLElement {
         if (this.queue.length == 0 || this.state != "playing")
             return;
         let next = this.queue.shift();
-        let time = Date.now() - this.zeroTime;
+        let time = Math.floor(Date.now() - this.zeroTime);
         let waitTime = 0;
         if (next.options && next.options.startAt !== undefined && next.options.startAt >= time)
             waitTime = next.options.startAt - time;
         this.active = true;
-        let elemThis = this;
-        window.setTimeout(function() {
-            if (elemThis.state != "playing") {
-                if (elemThis.state == "paused")
-                    elemThis.queue.unshift(next);
-                return;
-            }
-            if (next.options && next.options.finishAt !== undefined) {
-                let time = Date.now() - elemThis.zeroTime;
-                let dur = next.options.finishAt - time;
-                if (dur < 0) dur = 0;
-                console.log("startAt:", next.options.startAt);
-                console.log("finishAt:", next.options.finishAt);
-                console.log("time:", time);
-                console.log("duration:", dur);
-                next.options.duration = dur;
-            };
-            delete(next.options.startAt);
-            delete(next.options.finishAt);
-            elemThis.current = elemThis.shadowTop.animate(next.keyframes, next.options);
-            elemThis.current.onfinish = function() { elemThis.onAnimFinish() };
-        }, waitTime);
+        if (waitTime == 0)
+            this.submitAnimation()
+        else
+            window.setTimeout(this.submitAnimation, waitTime);
+    }
+
+    submitAnimation() {
+        if (this.state != "playing") {
+            if (this.state == "paused")
+                this.queue.unshift(next);
+            return;
+        }
+        if (next.options && next.options.finishAt !== undefined) {
+            let time = Math.floor(Date.now() - this.zeroTime);
+            let dur = next.options.finishAt - time;
+            if (dur < 0) dur = 0;
+            console.log("startAt:", next.options.startAt);
+            console.log("finishAt:", next.options.finishAt);
+            console.log("time:", time);
+            console.log("duration:", dur);
+            next.options.duration = dur;
+        };
+        delete(next.options.startAt);
+        delete(next.options.finishAt);
+        this.current = this.shadowTop.animate(next.keyframes, next.options);
+        this.current.onfinish = function() { this.onAnimFinish() };
     }
 
     onAnimFinish() {
