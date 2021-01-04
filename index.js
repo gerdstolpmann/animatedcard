@@ -176,12 +176,12 @@ class AnimatedCard extends HTMLElement {
         }
         if (next.options && next.options.finishAt !== undefined) {
             let time = Math.floor(Date.now() - this.zeroTime);
-            let dur = next.options.finishAt - time + 20;
+            let dur = next.options.finishAt - time;
             if (dur < 0) dur = 0;
-            console.log("startAt:", next.options.startAt);
-            console.log("finishAt:", next.options.finishAt);
-            console.log("time:", time);
-            console.log("duration:", dur);
+            // console.log("startAt:", next.options.startAt);
+            // console.log("finishAt:", next.options.finishAt);
+            // console.log("time:", time);
+            // console.log("duration:", dur);
             next.options.duration = dur;
         };
         delete(next.options.startAt);
