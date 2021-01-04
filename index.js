@@ -51,7 +51,7 @@ class AnimatedCard extends HTMLElement {
                 this.seqNumber = seqNumber;
             }
         };
-        console.log("addToQueue: time=", attr_time, " zero=", this.zeroTime," seqnumber=", attr_seqNumber);
+        console.log("addToQueue: time=", attr_time, " client_time=", Date.now() - this.zeroTime," seqnumber=", attr_seqNumber);
         let new_keyframes = [];
         let new_options = {};
         let attr_keyframes = this.getAttribute("keyframes");
